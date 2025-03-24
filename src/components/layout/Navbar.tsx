@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import AnimatedButton from '../ui/AnimatedButton';
+import LanguageToggle from '../ui/LanguageToggle';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navbar = () => {
+  const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -24,10 +27,10 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navItems = [
-    { label: '首頁', href: '#' },
-    { label: '功能', href: '#features' },
-    { label: '如何使用', href: '#how-it-works' },
-    { label: '定價', href: '#pricing' },
+    { label: t('nav.home'), href: '#' },
+    { label: t('nav.features'), href: '#features' },
+    { label: t('nav.howItWorks'), href: '#how-it-works' },
+    { label: t('nav.pricing'), href: '#pricing' },
   ];
 
   return (
@@ -40,8 +43,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold tracking-tight text-primary">TradVisor</span>
-            <span className="font-medium text-lg ml-1">譯師</span>
+            <span className="text-xl font-bold tracking-tight text-primary">{t('site.name')}</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -59,11 +61,12 @@ const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageToggle />
             <AnimatedButton variant="outline" size="sm">
-              登入
+              {t('nav.login')}
             </AnimatedButton>
             <AnimatedButton size="sm">
-              免費試用
+              {t('nav.freeTrial')}
             </AnimatedButton>
           </div>
 
@@ -93,12 +96,15 @@ const Navbar = () => {
                 {item.label}
               </a>
             ))}
-            <div className="pt-4 flex flex-col space-y-3">
+            <div className="flex items-center mb-4">
+              <LanguageToggle />
+            </div>
+            <div className="pt-2 flex flex-col space-y-3">
               <AnimatedButton variant="outline" fullWidth>
-                登入
+                {t('nav.login')}
               </AnimatedButton>
               <AnimatedButton fullWidth>
-                免費試用
+                {t('nav.freeTrial')}
               </AnimatedButton>
             </div>
           </div>

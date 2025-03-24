@@ -1,11 +1,13 @@
 
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Youtube, Mail } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Footer = () => {
+  const { t, language } = useLanguage();
   const year = new Date().getFullYear();
 
-  const footerSections = [
+  const footerSections = language === 'zh' ? [
     {
       title: '公司',
       links: [
@@ -19,11 +21,11 @@ const Footer = () => {
     {
       title: '功能',
       links: [
-        { label: 'AI 翻譯', href: '/features/ai-translation' },
-        { label: '多語言支援', href: '/features/languages' },
-        { label: '即時對話', href: '/features/real-time' },
-        { label: '語音翻譯', href: '/features/voice' },
-        { label: '文件翻譯', href: '/features/documents' },
+        { label: '文件分析', href: '/features/document-analysis' },
+        { label: 'SEC 文件爬取', href: '/features/sec-crawling' },
+        { label: 'AI 報告生成', href: '/features/ai-reports' },
+        { label: '投資洞見', href: '/features/investment-insights' },
+        { label: '公司財務分析', href: '/features/financial-analysis' },
       ],
     },
     {
@@ -34,6 +36,37 @@ const Footer = () => {
         { label: '常見問題', href: '/faq' },
         { label: '支援中心', href: '/support' },
         { label: '開發者 API', href: '/developers' },
+      ],
+    },
+  ] : [
+    {
+      title: 'Company',
+      links: [
+        { label: 'About Us', href: '/about' },
+        { label: 'Contact', href: '/contact' },
+        { label: 'Careers', href: '/careers' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
+      ],
+    },
+    {
+      title: 'Features',
+      links: [
+        { label: 'Document Analysis', href: '/features/document-analysis' },
+        { label: 'SEC Filing Crawler', href: '/features/sec-crawling' },
+        { label: 'AI Report Generation', href: '/features/ai-reports' },
+        { label: 'Investment Insights', href: '/features/investment-insights' },
+        { label: 'Company Financials', href: '/features/financial-analysis' },
+      ],
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Blog', href: '/blog' },
+        { label: 'Guides', href: '/guides' },
+        { label: 'FAQ', href: '/faq' },
+        { label: 'Support', href: '/support' },
+        { label: 'Developer API', href: '/developers' },
       ],
     },
   ];
@@ -53,11 +86,12 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-2 space-y-4">
             <Link to="/" className="flex items-center">
-              <span className="text-xl font-bold tracking-tight text-primary">TradVisor</span>
-              <span className="font-medium text-lg ml-1">譯師</span>
+              <span className="text-xl font-bold tracking-tight text-primary">{t('site.name')}</span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm">
-              TradVisor 譯師結合了先進的 AI 技術，提供高精準度的即時翻譯服務，幫助您輕鬆跨越語言障礙，連接全球。
+              {language === 'zh' 
+                ? 'SECGPT 結合了先進的 AI 技術，分析 SEC 文件並生成簡易報告，幫助投資者快速理解重點，不必閱讀冗長複雜的文件。'
+                : 'SECGPT combines advanced AI technology to analyze SEC documents and generate simplified reports, helping investors quickly understand key points without reading lengthy complex documents.'}
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((link) => (
@@ -87,17 +121,17 @@ const Footer = () => {
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-muted-foreground">
-            © {year} TradVisor 譯師. 保留所有權利.
+            © {year} {t('site.name')}. {language === 'zh' ? '保留所有權利' : 'All rights reserved'}.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-              隱私政策
+              {language === 'zh' ? '隱私政策' : 'Privacy Policy'}
             </a>
             <a href="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-              服務條款
+              {language === 'zh' ? '服務條款' : 'Terms of Service'}
             </a>
             <a href="/cookies" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-              Cookie 政策
+              {language === 'zh' ? 'Cookie 政策' : 'Cookie Policy'}
             </a>
           </div>
         </div>
