@@ -27,7 +27,6 @@ const Navbar = () => {
     { label: '首頁', href: '#' },
     { label: '功能', href: '#features' },
     { label: '如何使用', href: '#how-it-works' },
-    { label: '用戶評價', href: '#testimonials' },
     { label: '定價', href: '#pricing' },
   ];
 
