@@ -1,58 +1,58 @@
-# Welcome to your Lovable project
+# 歡迎使用您的 Lovable 專案
 
-## Project info
+## 專案資訊
 
 **URL**: https://lovable.dev/projects/95997a64-8b07-4bb7-9b6e-135e33562f7f
 
-## How can I edit this code?
+## 如何編輯此程式碼？
 
-There are several ways of editing your application.
+您可以透過以下幾種方式編輯您的應用程式：
 
-**Use Lovable**
+**使用 Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/95997a64-8b07-4bb7-9b6e-135e33562f7f) and start prompting.
+只需訪問 [Lovable 專案](https://lovable.dev/projects/95997a64-8b07-4bb7-9b6e-135e33562f7f) 並開始輸入指令即可。
 
-Changes made via Lovable will be committed automatically to this repo.
+透過 Lovable 進行的更改將自動提交到此儲存庫。
 
-**Use your preferred IDE**
+**使用您偏好的 IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+如果您想在本地使用自己的 IDE 進行開發，您可以複製此儲存庫並推送更改。推送的更改也會反映在 Lovable 中。
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+唯一的要求是安裝 Node.js 和 npm - [使用 nvm 安裝](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Follow these steps:
+請按照以下步驟操作：
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# 步驟 1：使用專案的 Git URL 複製儲存庫
 git clone https://github.com/MarkLo127/SECGPT.git
 
-# Step 2: Navigate to the project directory.
+# 步驟 2：進入專案目錄
 cd SECGPT
 
-# Step 3: Install the necessary dependencies.
+# 步驟 3：安裝必要的依賴套件
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 步驟 4：啟動開發伺服器，支援自動重新載入和即時預覽
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+**直接在 GitHub 上編輯檔案**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 導航到您想要的檔案
+- 點擊檔案視圖右上角的「編輯」按鈕（鉛筆圖示）
+- 進行更改並提交變更
 
-**Use GitHub Codespaces**
+**使用 GitHub Codespaces**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- 導航到您的儲存庫主頁
+- 點擊右上角的「Code」按鈕（綠色按鈕）
+- 選擇「Codespaces」分頁
+- 點擊「New codespace」以啟動新的 Codespace 環境
+- 直接在 Codespace 中編輯檔案，完成後提交並推送您的更改
 
-## What technologies are used for this project?
+## 此專案使用了哪些技術？
 
-This project is built with .
+本專案使用以下技術構建：
 
 - Vite
 - TypeScript
@@ -60,10 +60,10 @@ This project is built with .
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## 如何部署此專案？
 
-Simply open [Lovable](https://lovable.dev/projects/95997a64-8b07-4bb7-9b6e-135e33562f7f) and click on Share -> Publish.
+只需打開 [Lovable](https://lovable.dev/projects/95997a64-8b07-4bb7-9b6e-135e33562f7f) 並點擊 Share -> Publish。
 
-## I want to use a custom domain - is that possible?
+## 我想使用自定義網域 - 這可能嗎？
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+我們目前尚未支援自定義網域。如果您想要在自己的網域下部署專案，我們建議使用 Netlify。詳情請參閱我們的文件：[自定義網域](https://docs.lovable.dev/tips-tricks/custom-domain/)

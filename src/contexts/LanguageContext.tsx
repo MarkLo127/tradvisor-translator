@@ -33,18 +33,11 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'How It Works',
     zh: '如何使用',
   },
-  'nav.pricing': {
-    en: 'Pricing',
-    zh: '定價',
-  },
   'nav.login': {
     en: 'Login',
     zh: '登入',
   },
-  'nav.freeTrial': {
-    en: 'Free Trial',
-    zh: '免費試用',
-  },
+ 
 
   // Hero section
   'hero.title': {

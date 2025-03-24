@@ -31,18 +31,9 @@ const CallToAction = () => {
               className="bg-white text-primary hover:bg-white/90"
               size="lg"
             >
-              {language === 'zh' ? '免費試用 14 天' : 'Try Free for 14 Days'}
-            </AnimatedButton>
-            <AnimatedButton 
-              className="bg-transparent border border-white text-white hover:bg-white/10" 
-              size="lg"
-            >
-              {language === 'zh' ? '聯絡銷售團隊' : 'Contact Sales Team'}
+              {language === 'zh' ? '立即開始' : 'Get Started'}
             </AnimatedButton>
           </div>
-          <p className="text-sm text-primary-foreground/60 mt-6">
-            {language === 'zh' ? '無需信用卡，隨時取消' : 'No credit card required, cancel anytime'}
-          </p>
         </div>
       </div>
     </section>

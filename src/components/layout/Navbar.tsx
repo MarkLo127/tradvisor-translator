@@ -29,8 +29,7 @@ const Navbar = () => {
   const navItems = [
     { label: t('nav.home'), href: '#' },
     { label: t('nav.features'), href: '#features' },
-    { label: t('nav.howItWorks'), href: '#how-it-works' },
-    { label: t('nav.pricing'), href: '#pricing' },
+    { label: t('nav.howItWorks'), href: '#how-it-works' }
   ];
 
   return (
@@ -59,15 +58,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Language Toggle */}
+          <div className="hidden md:flex items-center">
             <LanguageToggle />
-            <AnimatedButton variant="outline" size="sm">
-              {t('nav.login')}
-            </AnimatedButton>
-            <AnimatedButton size="sm">
-              {t('nav.freeTrial')}
-            </AnimatedButton>
           </div>
 
           {/* Mobile Menu Button */}
@@ -99,14 +92,7 @@ const Navbar = () => {
             <div className="flex items-center mb-4">
               <LanguageToggle />
             </div>
-            <div className="pt-2 flex flex-col space-y-3">
-              <AnimatedButton variant="outline" fullWidth>
-                {t('nav.login')}
-              </AnimatedButton>
-              <AnimatedButton fullWidth>
-                {t('nav.freeTrial')}
-              </AnimatedButton>
-            </div>
+
           </div>
         </div>
       )}
