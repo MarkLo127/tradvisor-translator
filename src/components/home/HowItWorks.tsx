@@ -1,7 +1,10 @@
 
 import { useEffect } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const HowItWorks = () => {
+  const { language } = useLanguage();
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -22,37 +25,66 @@ const HowItWorks = () => {
     };
   }, []);
   
-  const steps = [
-    {
-      number: '01',
-      title: '輸入或上傳內容',
-      description: '輸入文字、上傳文件或開始即時對話，系統會自動檢測原始語言。',
-    },
-    {
-      number: '02',
-      title: '選擇目標語言',
-      description: '從超過 100 種語言中選擇您需要的目標語言，或使用自動建議功能。',
-    },
-    {
-      number: '03',
-      title: 'AI 進行翻譯處理',
-      description: '我們的 AI 引擎會分析內容，考慮語境和專業術語，生成最準確的翻譯。',
-    },
-    {
-      number: '04',
-      title: '獲取翻譯結果',
-      description: '幾秒鐘內獲得翻譯結果，可以複製、下載或直接分享給他人。',
-    },
-  ];
+  const steps = language === 'zh'
+    ? [
+        {
+          number: '01',
+          title: '輸入公司代號',
+          description: '輸入您想了解的公司股票代碼或名稱，系統將自動搜尋相關的 SEC 文件。',
+        },
+        {
+          number: '02',
+          title: '選擇文件類型',
+          description: '從 10-K 年報、10-Q 季報、8-K 重大事件報告等多種 SEC 文件中選擇您需要分析的類型。',
+        },
+        {
+          number: '03',
+          title: 'AI 進行文件分析',
+          description: '我們的 AI 引擎會深入分析文件內容，提取關鍵信息，生成摘要和見解。',
+        },
+        {
+          number: '04',
+          title: '獲取分析報告',
+          description: '查看 AI 生成的分析報告，包括財務摘要、風險評估、管理層討論要點等重要內容。',
+        },
+      ]
+    : [
+        {
+          number: '01',
+          title: 'Enter Company Symbol',
+          description: 'Input the stock symbol or name of the company you want to research, and the system will automatically search for relevant SEC documents.',
+        },
+        {
+          number: '02',
+          title: 'Select Document Type',
+          description: 'Choose from various SEC documents including 10-K annual reports, 10-Q quarterly reports, 8-K significant event reports, and more.',
+        },
+        {
+          number: '03',
+          title: 'AI Document Analysis',
+          description: 'Our AI engine deeply analyzes the document content, extracting key information and generating summaries and insights.',
+        },
+        {
+          number: '04',
+          title: 'Get Analysis Report',
+          description: 'View the AI-generated analysis report, including financial summaries, risk assessments, key points from management discussions, and more.',
+        },
+      ];
 
   return (
     <section id="how-it-works" className="section-padding bg-white">
       <div className="container mx-auto container-padding">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal">
-          <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full mb-4">使用指南</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">如何開始使用 TradVisor 譯師</h2>
+          <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full mb-4">
+            {language === 'zh' ? '使用指南' : 'How It Works'}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            {language === 'zh' ? '如何使用 SECGPT' : 'How to Use SECGPT'}
+          </h2>
           <p className="text-muted-foreground">
-            只需簡單幾步，即可獲得專業級別的翻譯結果，滿足您的各種語言需求
+            {language === 'zh'
+              ? '只需簡單幾步，即可獲得對 SEC 文件的專業分析，更快做出投資決策'
+              : 'In just a few simple steps, get professional analysis of SEC documents to make faster investment decisions'}
           </p>
         </div>
 

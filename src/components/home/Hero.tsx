@@ -1,9 +1,11 @@
 
 import { useEffect, useRef } from 'react';
 import AnimatedButton from '../ui/AnimatedButton';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const { t, language } = useLanguage();
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,24 +39,39 @@ const Hero = () => {
       <div className="container mx-auto container-padding py-24 md:py-32">
         <div className="flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/2 space-y-6 mb-12 lg:mb-0">
-            <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full animate-fade-in reveal">AI 驅動的翻譯服務</span>
+            <span className="inline-block px-3 py-1 text-sm font-medium text-primary bg-primary/10 rounded-full animate-fade-in reveal">
+              {language === 'zh' ? 'AI 驅動的 SEC 文件分析' : 'AI-Powered SEC Document Analysis'}
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight reveal">
-              智能翻譯，<br />
-              <span className="text-primary">連接世界</span>
+              {language === 'zh' ? (
+                <>
+                  智能分析，<br />
+                  <span className="text-primary">投資洞見</span>
+                </>
+              ) : (
+                <>
+                  Smart Analysis,<br />
+                  <span className="text-primary">Investment Insights</span>
+                </>
+              )}
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl reveal stagger-1">
-              TradVisor 譯師運用最先進的 AI 技術，提供精準、自然的即時翻譯，幫助您輕鬆跨越語言障礙，實現無縫全球溝通。
+              {language === 'zh' 
+                ? 'SECGPT 運用最先進的 AI 技術，分析 SEC 文件並生成簡易報告，幫助投資者快速理解重點，不必閱讀冗長複雜的文件。'
+                : 'SECGPT uses advanced AI technology to analyze SEC documents and generate simplified reports, helping investors quickly understand key points without reading lengthy complex documents.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 reveal stagger-2">
               <AnimatedButton size="lg">
-                立即開始免費試用
+                {language === 'zh' ? '立即開始分析' : 'Start Analyzing'}
               </AnimatedButton>
               <AnimatedButton variant="outline" size="lg">
-                了解更多
+                {language === 'zh' ? '了解更多' : 'Learn More'}
               </AnimatedButton>
             </div>
             <div className="reveal stagger-3">
-              <p className="text-sm text-muted-foreground">支援超過 100 種語言，無需註冊即可體驗</p>
+              <p className="text-sm text-muted-foreground">
+                {language === 'zh' ? '支援 10-K、10-Q、8-K 等多種 SEC 文件' : 'Supports various SEC documents including 10-K, 10-Q, 8-K and more'}
+              </p>
             </div>
           </div>
           <div className="lg:w-1/2 relative reveal stagger-3">
@@ -69,20 +86,34 @@ const Hero = () => {
               <div className="p-6 space-y-4">
                 <div className="flex justify-between mb-4">
                   <div className="w-1/2 pr-2">
-                    <div className="text-sm text-muted-foreground mb-2">英文</div>
-                    <div className="rounded-lg bg-secondary/70 p-4 h-48">
-                      <p className="text-sm">Hello! I'm excited to connect with you. Could you please translate this message for me? I want to make sure we understand each other clearly.</p>
+                    <div className="text-sm text-muted-foreground mb-2">
+                      {language === 'zh' ? 'SEC 文件（10-K 年報）' : 'SEC Document (10-K Filing)'}
+                    </div>
+                    <div className="rounded-lg bg-secondary/70 p-4 h-48 overflow-y-auto text-xs">
+                      <p className="font-mono">
+                        {language === 'zh' 
+                          ? 'Item 1A. 風險因素 \n我們的業務、財務狀況和經營業績可能受到各種風險的重大不利影響，包括但不限於以下概述的風險...'
+                          : 'Item 1A. Risk Factors \nOur business, financial condition and operating results may be materially adversely affected by various risks, including, but not limited to those outlined below...'}
+                      </p>
                     </div>
                   </div>
                   <div className="w-1/2 pl-2">
-                    <div className="text-sm text-muted-foreground mb-2">繁體中文</div>
-                    <div className="rounded-lg bg-secondary/70 p-4 h-48">
-                      <p className="text-sm">你好！我很高興能和你連絡。你能幫我翻譯這條訊息嗎？我想確保我們彼此清楚地理解對方。</p>
+                    <div className="text-sm text-muted-foreground mb-2">
+                      {language === 'zh' ? 'AI 生成報告' : 'AI-Generated Report'}
+                    </div>
+                    <div className="rounded-lg bg-secondary/70 p-4 h-48 overflow-y-auto text-xs">
+                      <p>
+                        {language === 'zh' 
+                          ? '主要風險概述：\n1. 市場競爭加劇\n2. 法規變更風險\n3. 技術創新不足\n4. 供應鏈中斷\n5. 網絡安全威脅增加'
+                          : 'Key Risk Summary:\n1. Increased market competition\n2. Regulatory change risks\n3. Insufficient technological innovation\n4. Supply chain disruptions\n5. Growing cybersecurity threats'}
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <AnimatedButton>立即翻譯</AnimatedButton>
+                  <AnimatedButton>
+                    {language === 'zh' ? '生成完整報告' : 'Generate Full Report'}
+                  </AnimatedButton>
                 </div>
               </div>
             </div>

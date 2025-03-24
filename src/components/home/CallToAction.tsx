@@ -1,7 +1,10 @@
 
 import AnimatedButton from '../ui/AnimatedButton';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const CallToAction = () => {
+  const { language } = useLanguage();
+  
   return (
     <section className="py-20 bg-primary relative overflow-hidden">
       {/* Background Elements */}
@@ -14,27 +17,31 @@ const CallToAction = () => {
       <div className="container mx-auto container-padding">
         <div className="text-center max-w-3xl mx-auto reveal">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            準備好突破語言障礙了嗎？
+            {language === 'zh' 
+              ? '準備好簡化您的投資研究了嗎？'
+              : 'Ready to simplify your investment research?'}
           </h2>
           <p className="text-primary-foreground/80 mb-8 text-lg">
-            立即開始使用 TradVisor 譯師，讓全球溝通變得前所未有的簡單
+            {language === 'zh'
+              ? '立即開始使用 SECGPT，讓 AI 幫助您分析 SEC 文件，更快獲取投資洞見'
+              : 'Start using SECGPT today and let AI help you analyze SEC documents for faster investment insights'}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <AnimatedButton 
               className="bg-white text-primary hover:bg-white/90"
               size="lg"
             >
-              免費試用 14 天
+              {language === 'zh' ? '免費試用 14 天' : 'Try Free for 14 Days'}
             </AnimatedButton>
             <AnimatedButton 
               className="bg-transparent border border-white text-white hover:bg-white/10" 
               size="lg"
             >
-              聯絡銷售團隊
+              {language === 'zh' ? '聯絡銷售團隊' : 'Contact Sales Team'}
             </AnimatedButton>
           </div>
           <p className="text-sm text-primary-foreground/60 mt-6">
-            無需信用卡，隨時取消
+            {language === 'zh' ? '無需信用卡，隨時取消' : 'No credit card required, cancel anytime'}
           </p>
         </div>
       </div>
