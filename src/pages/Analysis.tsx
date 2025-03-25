@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -76,22 +75,15 @@ const Analysis = () => {
       return;
     }
     
-    // Start analysis
-    toast({
-      title: language === 'zh' ? '分析開始' : 'Analysis started',
-      description: language === 'zh' 
-        ? `正在分析 ${ticker} 的 ${documentType} 文件` 
-        : `Analyzing ${documentType} document for ${ticker}`,
-    });
-    
-    // Here you would normally navigate to a chat/results page or start the analysis
-    // For now, we'll just log the data
-    console.log({
-      model: selectedModel,
-      apiKey,
-      baseUrl,
-      documentType,
-      ticker,
+    // Start analysis by navigating to the chat page with query parameters
+    navigate(`/chat?model=${selectedModel}&docType=${documentType}&ticker=${ticker}`, {
+      state: {
+        selectedModel,
+        apiKey,
+        baseUrl,
+        documentType,
+        ticker
+      }
     });
   };
 
