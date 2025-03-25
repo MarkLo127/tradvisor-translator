@@ -45,7 +45,7 @@ const ModelSelector = ({ selectedModel, setSelectedModel }: ModelSelectorProps) 
         },
         {
           id: 'o3-mini-2025-01-31',
-          name: 'o3',
+          name: 'o3-mini',
           description: language === 'zh'
            ? '快速，靈活，聰明的推理模型'
             : 'Fast, flexible, intelligent reasoning model'
