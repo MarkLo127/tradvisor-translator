@@ -1,332 +1,247 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import { Send, ArrowLeft, Copy, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Send, FileText, ArrowLeft, Info } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from '@/components/ui/menubar';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { toast } from '@/hooks/use-toast';
+import ChatMessage from '@/components/chat/ChatMessage';
 
-interface ChatMessage {
+interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: Date;
 }
 
+interface ChatState {
+  selectedModel: string;
+  apiKey: string;
+  baseUrl: string;
+  documentType: string;
+  ticker: string;
+}
+
 const Chat = () => {
   const { language } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
+  
+  const state = location.state as ChatState | null;
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
   
-  // Get the analysis data from location state
-  const analysisData = location.state || {};
-  const { selectedModel, apiKey, baseUrl, documentType, ticker } = analysisData;
-  
-  // State for the chat interface
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [inputValue, setInputValue] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showInfoDialog, setShowInfoDialog] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   
-  // Check if we have the necessary data to start analysis
+  // Check if we have the required state
   useEffect(() => {
-    if (!selectedModel || !apiKey || !documentType || !ticker) {
-      // If any required data is missing, redirect back to analysis page
+    if (!state || !state.selectedModel || !state.apiKey || !state.documentType || !state.ticker) {
       navigate('/analysis');
       return;
     }
     
-    // Initial system message
-    const initialSystemMessage: ChatMessage = {
-      id: 'system-intro',
-      role: 'system',
-      content: language === 'zh' 
-        ? `正在分析 ${ticker} 的 ${documentType} 文件。此分析使用 ${selectedModel} 模型。`
-        : `Analyzing ${documentType} document for ${ticker}. This analysis is powered by ${selectedModel}.`,
-      timestamp: new Date()
-    };
-    
-    // Initial assistant welcome message
-    const welcomeMessage: ChatMessage = {
-      id: 'welcome',
-      role: 'assistant',
-      content: language === 'zh'
-        ? `我正在分析 ${ticker} 的 ${documentType} 文件。你可以詢問任何關於此文件的問題，或是要求我生成摘要、找出重要部分等。`
-        : `I'm analyzing the ${documentType} document for ${ticker}. You can ask me any questions about this document, or request summaries, highlights, and more.`,
-      timestamp: new Date()
-    };
-    
-    setMessages([initialSystemMessage, welcomeMessage]);
-    
-    // Simulate document loading
-    setIsLoading(true);
-    setTimeout(() => {
-      const documentLoadedMessage: ChatMessage = {
-        id: 'doc-loaded',
-        role: 'assistant',
-        content: language === 'zh'
-          ? `✅ ${ticker} 的 ${documentType} 文件已載入完畢。你現在可以詢問任何關於此文件的問題。`
-          : `✅ ${documentType} document for ${ticker} has been loaded. You can now ask any questions about this document.`,
+    // Add initial system message
+    const initialMessages: Message[] = [
+      {
+        id: '1',
+        role: 'system',
+        content: language === 'zh' 
+          ? `我將幫助您分析 ${state.ticker} 的 ${state.documentType} 文件。` 
+          : `I'll help you analyze the ${state.documentType} document for ${state.ticker}.`,
         timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, documentLoadedMessage]);
-      setIsLoading(false);
-    }, 2000);
-  }, [selectedModel, apiKey, documentType, ticker, language, navigate]);
+      }
+    ];
+    
+    setMessages(initialMessages);
+  }, [state, navigate, language]);
   
-  // Scroll to bottom when messages change
+  // Auto-scroll to bottom of messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
   
-  // Handle sending a message
-  const handleSendMessage = () => {
-    if (!inputValue.trim() || isLoading) return;
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
     
     // Add user message
-    const userMessage: ChatMessage = {
+    const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: inputValue,
+      content: input,
       timestamp: new Date()
     };
     
     setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-    
-    // Simulate AI thinking
+    setInput('');
     setIsLoading(true);
     
-    // Simulate AI response after a delay
-    setTimeout(() => {
-      const aiResponse: ChatMessage = {
-        id: Date.now().toString(),
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Example responses based on analysis
+      let response = '';
+      if (input.toLowerCase().includes('risk')) {
+        response = language === 'zh' 
+          ? `根據 ${state?.ticker} 的 ${state?.documentType} 文件分析，主要風險包括：\n\n1. 市場競爭加劇\n2. 法規變更風險\n3. 技術創新不足\n4. 供應鏈中斷\n5. 網絡安全威脅增加`
+          : `Based on the analysis of ${state?.ticker}'s ${state?.documentType}, the main risks include:\n\n1. Increased market competition\n2. Regulatory changes\n3. Lack of technological innovation\n4. Supply chain disruptions\n5. Increased cybersecurity threats`;
+      } else if (input.toLowerCase().includes('financ') || input.toLowerCase().includes('財務')) {
+        response = language === 'zh'
+          ? `${state?.ticker} 的財務狀況顯示年度收入增長 12%，但營業利潤率降低 2.5%，主要由於原材料成本上升和供應鏈挑戰。`
+          : `${state?.ticker}'s financial position shows a 12% increase in annual revenue, but a 2.5% decrease in operating margin, primarily due to rising material costs and supply chain challenges.`;
+      } else {
+        response = language === 'zh'
+          ? `我已分析了 ${state?.ticker} 的 ${state?.documentType} 文件。有什麼具體方面您想了解的嗎？例如：財務表現、風險因素、業務策略、管理層討論等。`
+          : `I've analyzed the ${state?.documentType} for ${state?.ticker}. Is there a specific aspect you'd like to know about? For example: financial performance, risk factors, business strategy, management discussion, etc.`;
+      }
+      
+      // Add AI response
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: language === 'zh'
-          ? `這是對「${inputValue}」的模擬回應。在實際整合中，這會由 AI 產生並基於 ${ticker} 的 ${documentType} 文件內容回答。`
-          : `This is a simulated response to "${inputValue}". In the actual integration, this would be generated by the AI based on the content of the ${documentType} document for ${ticker}.`,
+        content: response,
         timestamp: new Date()
       };
       
-      setMessages(prev => [...prev, aiResponse]);
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: language === 'zh' ? '發送訊息時出錯' : 'Error sending message',
+        description: language === 'zh' ? '請稍後再試' : 'Please try again later',
+        variant: 'destructive',
+      });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
   
-  // Handle pressing Enter to send a message
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      handleSend();
     }
   };
-
+  
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-grow flex flex-col">
-        {/* Header with document info */}
-        <div className="border-b bg-card">
-          <div className="container mx-auto py-3 px-4 flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => navigate('/analysis')}
-                title={language === 'zh' ? '返回' : 'Back'}
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              
-              <div>
-                <h1 className="text-lg font-medium flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-primary" />
-                  {ticker} {documentType}
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  {language === 'zh' ? '使用模型: ' : 'Using model: '} {selectedModel}
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => setShowInfoDialog(true)}
-              >
-                <Info className="h-4 w-4 mr-2" />
-                {language === 'zh' ? '文件資訊' : 'Document Info'}
-              </Button>
-              
-              <Menubar className="border-none bg-transparent">
-                <MenubarMenu>
-                  <MenubarTrigger className="cursor-pointer">
-                    {language === 'zh' ? '選項' : 'Options'}
-                  </MenubarTrigger>
-                  <MenubarContent>
-                    <MenubarItem>
-                      {language === 'zh' ? '導出對話' : 'Export Chat'}
-                    </MenubarItem>
-                    <MenubarItem>
-                      {language === 'zh' ? '清除對話' : 'Clear Chat'}
-                    </MenubarItem>
-                    <MenubarItem>
-                      {language === 'zh' ? '生成報告' : 'Generate Report'}
-                    </MenubarItem>
-                  </MenubarContent>
-                </MenubarMenu>
-              </Menubar>
-            </div>
+    <div className="flex flex-col h-screen bg-background">
+      {/* Header */}
+      <header className="border-b py-3 px-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => navigate('/analysis')}
+            aria-label={language === 'zh' ? '返回' : 'Back'}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <div>
+            <h1 className="text-xl font-bold">
+              {state?.ticker} - {state?.documentType}
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {language === 'zh' ? '模型：' : 'Model: '}{state?.selectedModel}
+            </p>
           </div>
         </div>
         
-        {/* Messages area */}
-        <div className="flex-grow overflow-auto bg-muted/30 relative">
-          <div className="container mx-auto py-6 px-4 max-w-4xl">
-            {messages.map(message => (
-              <div 
-                key={message.id} 
-                className={`mb-6 ${message.role === 'system' ? 'hidden' : ''}`}
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    message.role === 'assistant' 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'bg-secondary text-secondary-foreground'
-                  }`}>
-                    {message.role === 'assistant' ? 'AI' : 'You'}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className={`p-4 rounded-lg ${
-                      message.role === 'assistant' 
-                        ? 'bg-card' 
-                        : 'bg-primary text-primary-foreground'
-                    }`}>
-                      <p className="whitespace-pre-wrap">{message.content}</p>
-                    </div>
-                    
-                    <div className="mt-1 text-xs text-muted-foreground">
-                      {new Date(message.timestamp).toLocaleTimeString()}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            
-            {isLoading && (
-              <div className="mb-6">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-primary-foreground">
-                    AI
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="p-4 rounded-lg bg-card">
-                      <div className="flex items-center gap-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>
-                          {language === 'zh' ? '思考中...' : 'Thinking...'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            <div ref={messagesEndRef} />
-          </div>
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setShowSettings(true)}
+          >
+            {language === 'zh' ? '查看設置' : 'View Settings'}
+          </Button>
         </div>
-        
-        {/* Input area */}
-        <div className="border-t bg-background">
-          <div className="container mx-auto py-4 px-4 max-w-4xl">
-            <div className="flex gap-3">
-              <Textarea
-                ref={inputRef}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder={language === 'zh' 
-                  ? `詢問關於 ${ticker} ${documentType} 的問題...` 
-                  : `Ask about ${ticker} ${documentType}...`
-                }
-                className="min-h-[52px] max-h-[200px] resize-none py-3"
-              />
-              
-              <Button 
-                onClick={handleSendMessage} 
-                disabled={!inputValue.trim() || isLoading}
-                size="icon"
-                className="h-[52px] w-[52px] shrink-0"
-              >
-                <Send className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </main>
+      </header>
       
-      {/* Document info dialog */}
-      <Dialog open={showInfoDialog} onOpenChange={setShowInfoDialog}>
+      {/* Chat messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.filter(m => m.role !== 'system').map((message) => (
+          <ChatMessage 
+            key={message.id} 
+            message={message} 
+            ticker={state?.ticker || ''} 
+          />
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+      
+      {/* Input area */}
+      <div className="border-t p-4">
+        <div className="relative">
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={language === 'zh' 
+              ? '詢問有關此 SEC 文件的問題...' 
+              : 'Ask a question about this SEC document...'}
+            className="resize-none pr-12 min-h-[80px]"
+            disabled={isLoading}
+          />
+          <Button 
+            className="absolute right-2 bottom-2"
+            size="icon"
+            disabled={!input.trim() || isLoading}
+            onClick={handleSend}
+          >
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+        <p className="text-xs text-muted-foreground mt-2 text-center">
+          {language === 'zh' 
+            ? '根據 SEC 文件提供的信息生成回應。請自行驗證重要資訊。' 
+            : 'Responses are generated based on SEC documents. Please verify important information.'}
+        </p>
+      </div>
+      
+      {/* Settings Dialog */}
+      <Dialog open={showSettings} onOpenChange={setShowSettings}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {language === 'zh' ? '文件資訊' : 'Document Information'}
+              {language === 'zh' ? '分析設置' : 'Analysis Settings'}
             </DialogTitle>
-            <DialogDescription>
-              {language === 'zh' 
-                ? '以下是您正在分析的文件詳細資訊' 
-                : 'Details about the document you are analyzing'
-              }
-            </DialogDescription>
           </DialogHeader>
-          
-          <div className="space-y-4 pt-4">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="text-muted-foreground">
-                {language === 'zh' ? '公司股票代號' : 'Company Ticker'}
-              </div>
-              <div className="font-medium">{ticker}</div>
-              
-              <div className="text-muted-foreground">
-                {language === 'zh' ? '文件類型' : 'Document Type'}
-              </div>
-              <div className="font-medium">{documentType}</div>
-              
-              <div className="text-muted-foreground">
-                {language === 'zh' ? '使用模型' : 'Model Used'}
-              </div>
-              <div className="font-medium">{selectedModel}</div>
-            </div>
-            
-            <div className="pt-2">
-              <h3 className="text-sm font-medium mb-2">
-                {language === 'zh' ? '模擬文件內容' : 'Simulated Document Content'}
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium mb-1">
+                {language === 'zh' ? '模型' : 'Model'}
               </h3>
-              <div className="bg-muted p-3 rounded text-sm max-h-[200px] overflow-auto">
-                {language === 'zh' 
-                  ? `這是 ${ticker} 的 ${documentType} 文件內容的模擬展示。在實際整合時，這將是從 SEC 網站獲取的真實數據。`
-                  : `This is a simulated display of the ${documentType} document content for ${ticker}. In the actual integration, this would be real data fetched from the SEC website.`
-                }
-              </div>
+              <p className="text-sm">{state?.selectedModel}</p>
             </div>
+            <div>
+              <h3 className="font-medium mb-1">
+                {language === 'zh' ? '文件類型' : 'Document Type'}
+              </h3>
+              <p className="text-sm">{state?.documentType}</p>
+            </div>
+            <div>
+              <h3 className="font-medium mb-1">
+                {language === 'zh' ? '股票代號' : 'Ticker'}
+              </h3>
+              <p className="text-sm">{state?.ticker}</p>
+            </div>
+            <div>
+              <h3 className="font-medium mb-1">API Key</h3>
+              <p className="text-sm">••••••••{state?.apiKey.slice(-4)}</p>
+            </div>
+            {state?.baseUrl && (
+              <div>
+                <h3 className="font-medium mb-1">Base URL</h3>
+                <p className="text-sm">{state?.baseUrl}</p>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
-      
-      <Footer />
     </div>
   );
 };
