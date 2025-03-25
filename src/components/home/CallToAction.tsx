@@ -27,7 +27,7 @@ const CallToAction = () => {
               ? '立即開始使用 SECGPT，讓 AI 幫助您分析 SEC 文件，更快獲取投資洞見'
               : 'Start using SECGPT today and let AI help you analyze SEC documents for faster investment insights'}
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex justify-center">
             <Link to="/analysis">
               <AnimatedButton 
                 className="bg-white text-primary hover:bg-white/90"

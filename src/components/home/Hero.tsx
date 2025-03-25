@@ -1,5 +1,6 @@
 
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import AnimatedButton from '../ui/AnimatedButton';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -61,9 +62,11 @@ const Hero = () => {
                 : 'SECGPT uses advanced AI technology to analyze SEC documents and generate simplified reports, helping investors quickly understand key points without reading lengthy complex documents.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 reveal stagger-2">
-              <AnimatedButton size="lg">
-                {language === 'zh' ? '立即開始分析' : 'Start Analyzing'}
-              </AnimatedButton>
+              <Link to="/analysis">
+                <AnimatedButton size="lg">
+                  {language === 'zh' ? '立即開始分析' : 'Start Analyzing'}
+                </AnimatedButton>
+              </Link>
               <AnimatedButton variant="outline" size="lg">
                 {language === 'zh' ? '了解更多' : 'Learn More'}
               </AnimatedButton>
