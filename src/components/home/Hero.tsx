@@ -61,15 +61,12 @@ const Hero = () => {
                 ? 'SECGPT 運用最先進的 AI 技術，分析 SEC 文件並生成簡易報告，幫助投資者快速理解重點，不必閱讀冗長複雜的文件。'
                 : 'SECGPT uses advanced AI technology to analyze SEC documents and generate simplified reports, helping investors quickly understand key points without reading lengthy complex documents.'}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 reveal stagger-2">
+            <div className="flex justify-center reveal stagger-2">
               <Link to="/analysis">
                 <AnimatedButton size="lg">
                   {language === 'zh' ? '立即開始分析' : 'Start Analyzing'}
                 </AnimatedButton>
               </Link>
-              <AnimatedButton variant="outline" size="lg">
-                {language === 'zh' ? '了解更多' : 'Learn More'}
-              </AnimatedButton>
             </div>
             <div className="reveal stagger-3">
               <p className="text-sm text-muted-foreground">
