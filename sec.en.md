@@ -1,4 +1,7 @@
+# SEC Filing Types
+
 ## 1. Registration Statements
+
 Filings used by companies to register securities before offering them in public markets, including IPOs, mergers, and employee plans.
 
 - **Main Types**:
@@ -28,6 +31,7 @@ Filings used by companies to register securities before offering them in public 
 ---
 
 ## 2. Periodic Reports
+
 Reports submitted periodically by public and investment companies to disclose financial and operational updates.
 
 - **U.S. Public Companies**:
@@ -54,6 +58,7 @@ Reports submitted periodically by public and investment companies to disclose fi
 ---
 
 ## 3. Proxy and Voting Filings
+
 Documents related to shareholder meetings, voting, and corporate governance.
 
 - **Proxy Statements**:
@@ -72,6 +77,7 @@ Documents related to shareholder meetings, voting, and corporate governance.
 ---
 
 ## 4. Acquisition and Tender Offer Filings
+
 Filings related to company acquisitions, tender offers, or privatization.
 
 - **Ownership Disclosures**:
@@ -89,6 +95,7 @@ Filings related to company acquisitions, tender offers, or privatization.
 ---
 
 ## 5. Insider Trading Filings
+
 Reports of securities transactions and ownership by corporate insiders (executives, directors, major shareholders).
 
 - **3**: Initial ownership statement
@@ -99,6 +106,7 @@ Reports of securities transactions and ownership by corporate insiders (executiv
 ---
 
 ## 6. Prospectuses
+
 Disclosure documents related to securities offerings.
 
 - **Rule 424**:
@@ -114,6 +122,7 @@ Disclosure documents related to securities offerings.
 ---
 
 ## 7. Amendments and Post-Effective Filings
+
 Updates or amendments to previously filed documents.
 
 - **POS AM**: Post-effective amendment
@@ -126,6 +135,7 @@ Updates or amendments to previously filed documents.
 ---
 
 ## 8. Withdrawal and Termination Filings
+
 Requests to terminate registration or withdraw filings.
 
 - **RW**: Registration withdrawal request
@@ -138,6 +148,7 @@ Requests to terminate registration or withdraw filings.
 ---
 
 ## 9. Private Placement and Crowdfunding Filings
+
 Disclosure documents for private companies raising capital through private placements or crowdfunding.
 
 - **D**: Regulation D private offering
@@ -147,6 +158,7 @@ Disclosure documents for private companies raising capital through private place
 ---
 
 ## 10. Miscellaneous Filings
+
 Special-purpose filings that do not fit into the above categories.
 
 - **EFFECT**: Notice of registration effectiveness

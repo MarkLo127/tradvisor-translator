@@ -1,4 +1,8 @@
+
+# SEC文件類型總覽
+
 ## 1. 註冊聲明 (Registration Statements)
+
 用於公司在公開市場發行證券前的註冊，包括首次公開發行(IPO)、併購、員工計劃等。
 
 - **主要類型**:
@@ -28,6 +32,7 @@
 ---
 
 ## 2. 定期報告 (Periodic Reports)
+
 公開公司和投資公司需定期提交的財務和運營報告。
 
 - **美國公開公司**:
@@ -54,6 +59,7 @@
 ---
 
 ## 3. 代理與股東投票文件 (Proxy and Voting Filings)
+
 與股東會議、投票和公司治理相關的文件。
 
 - **代理聲明**:
@@ -72,6 +78,7 @@
 ---
 
 ## 4. 收購與要約文件 (Acquisition and Tender Offer Filings)
+
 涉及公司收購、要約收購或私有化的文件。
 
 - **所有權披露**:
@@ -89,6 +96,7 @@
 ---
 
 ## 5. 內部交易報告 (Insider Trading Filings)
+
 公司內部人士（高管、董事、大股東）的證券交易和所有權報告。
 
 - **3**: 初始所有權聲明
@@ -99,6 +107,7 @@
 ---
 
 ## 6. 招股說明書 (Prospectuses)
+
 與證券發行相關的披露文件。
 
 - **Rule 424**:
@@ -114,6 +123,7 @@
 ---
 
 ## 7. 修正與後續文件 (Amendments and Post-Effective Filings)
+
 對已有文件的修正或更新。
 
 - **POS AM**: 生效後修正
@@ -126,6 +136,7 @@
 ---
 
 ## 8. 撤回與終止文件 (Withdrawal and Termination Filings)
+
 終止註冊或撤回文件的申請。
 
 - **RW**: 註冊撤回請求
@@ -138,6 +149,7 @@
 ---
 
 ## 9. 私募與眾籌文件 (Private Placement and Crowdfunding Filings)
+
 私營公司用於私募或眾籌的披露文件。
 
 - **D**: Regulation D私募發行
@@ -147,6 +159,7 @@
 ---
 
 ## 10. 其他文件 (Miscellaneous Filings)
+
 不屬於上述類別的特殊用途文件。
 
 - **EFFECT**: 註冊生效通知
