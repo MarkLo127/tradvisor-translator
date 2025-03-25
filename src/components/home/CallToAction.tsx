@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import AnimatedButton from '../ui/AnimatedButton';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -27,12 +28,14 @@ const CallToAction = () => {
               : 'Start using SECGPT today and let AI help you analyze SEC documents for faster investment insights'}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <AnimatedButton 
-              className="bg-white text-primary hover:bg-white/90"
-              size="lg"
-            >
-              {language === 'zh' ? '立即開始' : 'Get Started'}
-            </AnimatedButton>
+            <Link to="/analysis">
+              <AnimatedButton 
+                className="bg-white text-primary hover:bg-white/90"
+                size="lg"
+              >
+                {language === 'zh' ? '立即開始' : 'Get Started'}
+              </AnimatedButton>
+            </Link>
           </div>
         </div>
       </div>
