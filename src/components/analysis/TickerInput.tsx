@@ -16,12 +16,21 @@ const TickerInput = ({ ticker, setTicker }: TickerInputProps) => {
   
   // Example company suggestions (in a real app, this would come from an API)
   const popularCompanies = [
-    { ticker: 'AAPL', name: 'Apple Inc.' },
+    { ticker: 'NVDA', name: 'Nvidia Corporation' },
+    { ticker: 'AVGO', name: 'Broadcom Inc' },
+    { ticker: 'TSM', name: 'Taiwan Semiconductor Manufacturing' },
+
+    { ticker: 'AMZN', name: 'Amazon.com, Inc' },
     { ticker: 'MSFT', name: 'Microsoft Corporation' },
-    { ticker: 'GOOGL', name: 'Alphabet Inc.' },
-    { ticker: 'AMZN', name: 'Amazon.com, Inc.' },
-    { ticker: 'META', name: 'Meta Platforms, Inc.' },
-    { ticker: 'TSLA', name: 'Tesla, Inc.' },
+    { ticker: 'GOOGL', name: 'Alphabet Inc' },
+
+    { ticker: 'META', name: 'Meta Platforms, Inc' },
+    { ticker: 'TSLA', name: 'Tesla, Inc' },
+    { ticker: 'AAPL', name: 'Apple Inc' },
+
+    { ticker: 'BRK-B', name: 'Berkshire Hathaway Inc' },
+    { ticker: 'BLK', name: 'BlackRock Inc' },
+    { ticker: 'BX', name: 'Blackstone Group' },
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,14 +68,14 @@ const TickerInput = ({ ticker, setTicker }: TickerInputProps) => {
               id="ticker"
               value={ticker}
               onChange={handleInputChange}
-              placeholder={language === 'zh' ? '例如：AAPL, MSFT, GOOGL' : 'e.g., AAPL, MSFT, GOOGL'}
+              placeholder={language === 'zh' ? '例如：NVDA, AVGO, BRK-B' : 'e.g., NVDA, AVGO, BRK-B'}
               className="pl-10"
             />
           </div>
           <p className="text-sm text-muted-foreground mt-1">
             {language === 'zh' 
-              ? '輸入美國股票市場的股票代號' 
-              : 'Enter the ticker symbol from the US stock market'}
+              ? '輸入股票代號' 
+              : 'Enter the ticker symbol'}
           </p>
         </div>
         

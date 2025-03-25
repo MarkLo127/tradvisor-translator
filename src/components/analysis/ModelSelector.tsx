@@ -14,25 +14,39 @@ const ModelSelector = ({ selectedModel, setSelectedModel }: ModelSelectorProps) 
   
   const models = [
     {
-      id: 'gpt-4o',
-      name: 'GPT-4o',
+      id: 'openai',
+      name: 'OpenAI GPT-4',
       description: language === 'zh' 
-        ? '最強大的模型，支援多模態和上下文理解' 
-        : 'Most powerful model with multimodal and context understanding'
+        ? '最強大的商業 AI 模型，具備優秀的理解和分析能力' 
+        : 'Most powerful commercial AI model with excellent comprehension and analysis capabilities'
     },
     {
-      id: 'gpt-4-turbo',
-      name: 'GPT-4 Turbo',
+      id: 'gemini',
+      name: 'Google Gemini',
       description: language === 'zh' 
-        ? '平衡效能與速度的選擇' 
-        : 'Balanced performance and speed'
+        ? 'Google 最新的 AI 模型，擅長多模態分析' 
+        : 'Google\'s latest AI model, excelling in multimodal analysis'
     },
     {
-      id: 'gpt-3.5-turbo',
-      name: 'GPT-3.5 Turbo',
+      id: 'claude',
+      name: 'Anthropic Claude',
       description: language === 'zh' 
-        ? '快速且成本效益高的選擇' 
-        : 'Fast and cost-effective option'
+        ? '具有強大的文本理解和分析能力' 
+        : 'Powerful text comprehension and analysis capabilities'
+    },
+    {
+      id: 'deepseek',
+      name: 'Deepseek',
+      description: language === 'zh' 
+        ? '專注於深度學習的開源 AI 模型' 
+        : 'Open-source AI model focused on deep learning'
+    },
+    {
+      id: 'grok',
+      name: 'xAI Grok',
+      description: language === 'zh' 
+        ? '最新的對話式 AI 模型，具有獨特的分析視角' 
+        : 'Latest conversational AI model with unique analytical perspective'
     }
   ];
 
