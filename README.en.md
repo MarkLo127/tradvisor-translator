@@ -46,10 +46,10 @@ git clone https://github.com/MarkLo127/SECGPT.git
 cd SECGPT
 
 # Step 3: Install necessary dependencies
-npm i
+pnpm i
 
 # Step 4: Start the development server with auto-reload and live preview
-npm run dev
+pnpm run dev
 ```
 
 ### Usage Guide

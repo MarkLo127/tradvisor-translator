@@ -46,10 +46,10 @@ git clone https://github.com/MarkLo127/SECGPT.git
 cd SECGPT
 
 # 步驟 3：安裝必要的依賴套件
-npm i
+pnpm i
 
 # 步驟 4：啟動開發伺服器，支援自動重新載入和即時預覽
-npm run dev
+pnpm run dev
 ```
 
 ### 使用指南

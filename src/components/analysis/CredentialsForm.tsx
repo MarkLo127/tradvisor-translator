@@ -9,21 +9,25 @@ interface CredentialsFormProps {
   setApiKey: (key: string) => void;
   baseUrl: string;
   setBaseUrl: (url: string) => void;
+  secApiKey: string;
+  setSecApiKey: (key: string) => void;
 }
 
-const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl }: CredentialsFormProps) => {
+const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl, secApiKey, setSecApiKey }: CredentialsFormProps) => {
   const { language } = useLanguage();
   
   const form = useForm({
     defaultValues: {
       apiKey,
-      baseUrl
+      baseUrl,
+      secApiKey
     }
   });
 
-  const onSubmit = (data: { apiKey: string; baseUrl: string }) => {
+  const onSubmit = (data: { apiKey: string; baseUrl: string; secApiKey: string }) => {
     setApiKey(data.apiKey);
     setBaseUrl(data.baseUrl);
+    setSecApiKey(data.secApiKey);
   };
 
   // Update parent state when form values change
@@ -33,6 +37,10 @@ const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl }: Credentials
 
   const handleBaseUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBaseUrl(e.target.value);
+  };
+
+  const handleSecApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSecApiKey(e.target.value);
   };
 
   return (
@@ -95,6 +103,33 @@ const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl }: Credentials
                   {language === 'zh'
                     ? '如果您使用的是代理或自託管的 AI 服務，請輸入基本 URL'
                     : 'Enter a Base URL if you are using a proxy or self-hosted AI service'}
+                </FormDescription>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="secApiKey"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {language === 'zh' ? 'SEC API Key' : 'SEC API Key'}
+                  <span className="text-destructive"> *</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="password"
+                    placeholder={language === 'zh' ? '輸入您的 SEC API Key' : 'Enter your SEC API Key'}
+                    value={secApiKey}
+                    onChange={handleSecApiKeyChange}
+                  />
+                </FormControl>
+                <FormDescription>
+                  {language === 'zh'
+                    ? <>您可以從 <a href="https://sec-api.io" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://sec-api.io</a> 獲取 SEC API Key</>
+                    : <>You can get a SEC API Key from <a href="https://sec-api.io" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://sec-api.io</a></>}
                 </FormDescription>
               </FormItem>
             )}
