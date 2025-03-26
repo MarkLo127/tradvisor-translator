@@ -23,6 +23,7 @@ const Analysis = () => {
   const [selectedModel, setSelectedModel] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [baseUrl, setBaseUrl] = useState('');
+  const [secApiKey, setSecApiKey] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [ticker, setTicker] = useState('');
 
@@ -37,9 +38,9 @@ const Analysis = () => {
       }
       setCurrentStep('credentials');
     } else if (currentStep === 'credentials') {
-      if (!apiKey) {
+      if (!apiKey || !secApiKey) {
         toast({
-          title: language === 'zh' ? '請輸入 API Key' : 'Please enter API Key',
+          title: language === 'zh' ? '請輸入所有必填的 API Key' : 'Please enter all required API Keys',
           variant: "destructive",
         });
         return;
@@ -82,6 +83,7 @@ const Analysis = () => {
         selectedModel,
         apiKey,
         baseUrl,
+        secApiKey,
         documentType,
         ticker
       }
@@ -140,6 +142,8 @@ const Analysis = () => {
                 setApiKey={setApiKey}
                 baseUrl={baseUrl}
                 setBaseUrl={setBaseUrl}
+                secApiKey={secApiKey}
+                setSecApiKey={setSecApiKey}
               />
             )}
             

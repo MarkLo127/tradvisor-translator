@@ -1,8 +1,10 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription, FormMessage } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 interface CredentialsFormProps {
   apiKey: string;
@@ -16,12 +18,23 @@ interface CredentialsFormProps {
 const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl, secApiKey, setSecApiKey }: CredentialsFormProps) => {
   const { language } = useLanguage();
   
+  const formSchema = z.object({
+    apiKey: z.string().min(1, {
+      message: language === 'zh' ? 'API Key 為必填欄位' : 'API Key is required'
+    }),
+    baseUrl: z.string(),
+    secApiKey: z.string().min(1, {
+      message: language === 'zh' ? 'SEC API Key 為必填欄位' : 'SEC API Key is required'
+    })
+  });
+
   const form = useForm({
     defaultValues: {
       apiKey,
       baseUrl,
       secApiKey
-    }
+    },
+    resolver: zodResolver(formSchema)
   });
 
   const onSubmit = (data: { apiKey: string; baseUrl: string; secApiKey: string }) => {
@@ -79,6 +92,7 @@ const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl, secApiKey, se
                     ? '您可以從 OpenAI 或其他 AI 提供商獲取 API Key'
                     : 'You can get an API Key from OpenAI or other AI providers'}
                 </FormDescription>
+                <FormMessage />  
               </FormItem>
             )}
           />
@@ -131,6 +145,7 @@ const CredentialsForm = ({ apiKey, setApiKey, baseUrl, setBaseUrl, secApiKey, se
                     ? <>您可以從 <a href="https://sec-api.io" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://sec-api.io</a> 獲取 SEC API Key</>
                     : <>You can get a SEC API Key from <a href="https://sec-api.io" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://sec-api.io</a></>}
                 </FormDescription>
+                <FormMessage />
               </FormItem>
             )}
           />
