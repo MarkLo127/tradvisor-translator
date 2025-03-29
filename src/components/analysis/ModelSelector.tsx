@@ -125,26 +125,6 @@ const ModelSelector = ({ selectedModel, setSelectedModel }: ModelSelectorProps) 
             : 'Specially applicable to tasks such as mathematics, coding and logic, performance benchmarking OpenAI o1'
         }
       ]
-    },
-    {
-      id: 'xAI',
-      name: language === 'zh' ? 'xAI' : 'xAI',
-      models: [
-        {
-          id: 'grok-2-1212',
-          name: 'grok-2',
-          description: language === 'zh'
-            ? 'Grok 2模型支援函式呼叫和結構化輸出。'
-            : 'Grok 2 model supporting function calling and structured outputs.'
-        },
-        {
-          id: 'grok-2-vision-1212',
-          name: 'grok-2-vision',
-          description: language === 'zh'
-           ? 'Grok 2影象理解模型能夠處理文件、圖表等'
-            : 'Grok 2 image understanding model capable of processing documents, diagrams, and more.'
-        }
-      ]
     }
   ];
 
